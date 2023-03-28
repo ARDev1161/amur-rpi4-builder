@@ -87,9 +87,8 @@ RUN tar xJf x-tools-aarch64-rpi4-linux-gnu.tar.xz -C ~/opt
 
 # Build thirdparty libraries
 ADD scripts /tmp/scripts
-RUN wget https://github.com/opencv/opencv/archive/refs/tags/4.7.0.tar.gz && \
-    tar -zxf opencv-4.7.0.tar.gz --directory /tmp/build_opencv
-RUN /tmp/scripts/install_opencv.sh /tmp/build_opencv/opencv-4.7.0
+RUN git clone https://github.com/opencv/opencv.git /tmp/build_opencv
+RUN /tmp/scripts/install_opencv.sh /tmp/build_opencv/
 RUN /tmp/scripts/install_grpc.sh
 # RUN cd /tmp \
 #     && git clone https://github.com/sbabic/libubootenv.git \
