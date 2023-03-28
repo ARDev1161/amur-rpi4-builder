@@ -88,7 +88,7 @@ RUN tar xJf x-tools-aarch64-rpi4-linux-gnu.tar.xz -C ~/opt
 # Build thirdparty libraries
 ADD scripts /tmp/scripts
 RUN wget https://github.com/opencv/opencv/archive/refs/tags/4.7.0.tar.gz
-RUN tar xJf 4.7.0.tar.gz -C /tmp/build_opencv
+RUN tar xzf 4.7.0.tar.gz -C /tmp/build_opencv
 RUN /tmp/scripts/install_opencv.sh /tmp/build_opencv
 RUN /tmp/scripts/install_grpc.sh
 # RUN cd /tmp \
