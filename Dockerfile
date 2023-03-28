@@ -84,15 +84,10 @@ ENV LC_ALL en_US.UTF-8
 RUN wget https://github.com/ARDev1161/raspberry-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi4-linux-gnu.tar.xz
 RUN mkdir -p ~/opt
 RUN tar xJf x-tools-aarch64-rpi4-linux-gnu.tar.xz -C ~/opt
-#
-# ARG PROCCESSOR_ARCH=aarch64
-# ARG TOOLCHAIN_NAME=aarch64-rpi4-linux-gnu
-# ARG TOOLCHAIN_PATH=~/opt/x-tools/${TOOLCHAIN_NAME}
-# ARG TOOLCHAIN_UTIL=${TOOLCHAIN_PATH}/bin/${TOOLCHAIN_NAME}
-# ARG TOOLCHAIN_TOOLS=${TOOLCHAIN_PATH}/${TOOLCHAIN_NAME}
 
 # Build thirdparty libraries
-RUN git submodule update --init --recursive
+RUN wget https://github.com/opencv/opencv/archive/refs/tags/4.7.0.tar.gz
+RUN tar xJf 4.7.0.tar.gz -C ./opencv
 ADD scripts /tmp/scripts
 ADD opencv /tmp/build_opencv
 RUN /tmp/scripts/install_opencv.sh /tmp/build_opencv
