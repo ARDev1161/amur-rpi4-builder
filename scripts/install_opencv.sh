@@ -1,0 +1,52 @@
+#!/bin/bash
+mkdir $1/build
+cd $1/build
+ls ..
+
+export PROCCESSOR_ARCH=aarch64
+export TOOLCHAIN_NAME=aarch64-rpi4-linux-gnu
+export TOOLCHAIN_PATH=~/opt/x-tools/${TOOLCHAIN_NAME}
+export TOOLCHAIN_UTIL=${TOOLCHAIN_PATH}/bin/${TOOLCHAIN_NAME}
+export TOOLCHAIN_TOOLS=${TOOLCHAIN_PATH}/${TOOLCHAIN_NAME}
+
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_CROSSCOMPILING=1 \
+    -D CMAKE_INSTALL_PREFIX=/opt/opencv \
+    -D CMAKE_SYSTEM_NAME=Linux \
+    -D CMAKE_SYSTEM_PROCESSOR=${PROCCESSOR_ARCH} \
+    -D CMAKE_C_COMPILER=${TOOLCHAIN_UTIL}-gcc \
+    -D CMAKE_CXX_COMPILER=${TOOLCHAIN_UTIL}-g++ \
+    -D BUILD_SHARED_LIBS=OFF \
+    -D OPENCV_ENABLE_NONFREE=ON \
+    -D ENABLE_NEON=OFF \
+    -D ENABLE_VFPV3=OFF \
+    -D OPENCV_ENABLE_ALLOCATOR_STATS=OFF \
+    -D BUILD_JAVA=OFF \
+    -D BUILD_TESTS=OFF \
+    -D BUILD_DOCS=OFF \
+    -D BUILD_EXAMPLES=OFF \
+    -D BUILD_ITT=OFF \
+    -D WITH_CUBLAS=OFF \
+    -D WITH_CUDA=OFF \
+    -D WITH_GTK=OFF \
+    -D WITH_TBB=OFF \
+    -D BUILD_TBB=OFF \
+    -D WITH_V4L=ON \
+    -D WITH_LAPACK=OFF \
+    -D WITH_OPENCL=OFF \
+    -D WITH_FFMPEG=OFF \
+    -D WITH_GSTREAMER=ON \
+    -D WITH_JPEG=ON \
+    -D WITH_PNG=OFF \
+    -D WITH_TIFF=OFF \
+    -D WITH_WEBP=OFF \
+    -D WITH_OPENJPEG=ON \
+    -D WITH_JASPER=OFF \
+    -D WITH_OPENEXR=OFF \
+    -D WITH_PROTOBUF=OFF \
+    -D WITH_IPP=OFF \
+    -D BUILD_LIST=calib3d,features2d,imgcodecs,imgproc,shape,video,videoio,videostab \
+    ..
+
+make -j$(nproc)
+make install/strip
