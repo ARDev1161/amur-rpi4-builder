@@ -92,6 +92,7 @@ RUN tar xJf x-tools-aarch64-rpi4-linux-gnu.tar.xz -C ~/opt
 # ARG TOOLCHAIN_TOOLS=${TOOLCHAIN_PATH}/${TOOLCHAIN_NAME}
 
 # Build thirdparty libraries
+RUN git submodule update --init --recursive
 ADD scripts /tmp/scripts
 ADD opencv /tmp/build_opencv
 RUN /tmp/scripts/install_opencv.sh /tmp/build_opencv
