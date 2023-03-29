@@ -74,7 +74,7 @@ jobs:
       - name: Export libraries
         run: |
           container=$(docker run -d ${{ steps.image-name.outputs.lowercase }}:tmp \
-              bash -c "tar cJf libraries.tar.xz /opt/*")
+              bash -c "tar cJf /home/develop/libraries.tar.xz /opt/* && ls /opt")
           status=$(docker wait $container)
           if [ $status -ne 0 ]; then
               echo "Error creating library archive"
