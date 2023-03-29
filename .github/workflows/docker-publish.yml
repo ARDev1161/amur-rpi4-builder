@@ -63,7 +63,6 @@ jobs:
       # Build and load Docker image
       # https://github.com/docker/build-push-action
       - name: Build Docker image
-        if: matrix.triple != 'arm-pico-eabi'
         id: build
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
@@ -74,7 +73,7 @@ jobs:
       - name: Export libraries
         run: |
           container=$(docker run -d ${{ steps.image-name.outputs.lowercase }}:tmp \
-              bash -c "tar cJf /home/develop/libraries.tar.xz /opt/* && ls /opt")
+              bash -c "tar cJf /home/develop/libraries.tar.xz /opt")
           status=$(docker wait $container)
           if [ $status -ne 0 ]; then
               echo "Error creating library archive"
