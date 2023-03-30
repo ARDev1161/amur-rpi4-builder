@@ -80,6 +80,8 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+WORKDIR /home/develop
+
 # Downloading & installing toolchain
 RUN wget https://github.com/ARDev1161/raspberry-cross-toolchain/releases/latest/download/x-tools-aarch64-rpi4-linux-gnu.tar.xz
 RUN mkdir -p ~/opt
