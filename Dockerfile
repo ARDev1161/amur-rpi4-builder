@@ -20,7 +20,6 @@ RUN apt-get install -y \
       rsync \
       libarchive-dev \
       clang \
-      python \
       xxd \
       qemu-system-aarch64 \
 # libconfig \
