@@ -12,9 +12,17 @@ RUN apt-get install -y \
       unzip \
       tar \
       cpio \
+      lzop \
       ssh \
       gdb \
       locales \
+      libncurses-dev \
+      rsync \
+      libarchive-dev \
+      clang \
+      python \
+      xxd \
+      qemu-system-aarch64 \
 # libconfig \
       libconfig++-dev \
       libconfig-dev \
@@ -42,26 +50,18 @@ RUN apt-get install -y \
       libgstreamer-plugins-base1.0-dev\
 # gRPC dependencies
       libssl-dev \
-#
-#       swig \
-#       clang \
-#       rsync \
-#       python \
 #       p7zip-full \
 #       bc \
 #       expect \
-#       qemu-system-aarch64 \
+#       swig \
 # \
 #       libopencv-dev \
 #       libopencv-shape-dev \
 #       libopencv-video-dev \
 #       libopencv-imgproc-dev \
-#       libarchive-dev \
 # \
-#       lzop \
 #       libboost-iostreams-dev \
 #       genext2fs \
-#       xxd \
 # \
 #       protobuf-compiler \
 #       protobuf-compiler-grpc \
