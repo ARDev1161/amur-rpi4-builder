@@ -30,9 +30,9 @@ bitbake-layers add-layer \
 popd &> /dev/null
 
 echo
-echo "Modifying: '${SCRIPT_DIR}/poky/build/conf/local.conf'"
+echo "Modifying: '${SCRIPT_DIR}/${BUILD_DIR}/conf/local.conf'"
 LOCAL_CONF_STRING="# ADDED BY '${SCRIPT_DIR}/create-bitbake-conf.sh'"
-if grep -q "${LOCAL_CONF_STRING}" "${SCRIPT_DIR}/poky/build/conf/local.conf";
+if grep -q "${LOCAL_CONF_STRING}" "${SCRIPT_DIR}/${BUILD_DIR}/conf/local.conf";
 then
     :
 else
@@ -77,7 +77,7 @@ EOF
 fi
 
 echo
-echo "Please check '${SCRIPT_DIR}/poky/build/conf/local.conf'"
+echo "Please check '${SCRIPT_DIR}/${BUILD_DIR}/conf/local.conf'"
 echo
 echo "DL_DIR has been set to: '${DL_DIR}'"
 echo "SSTATE_DIR has been set to: '${SSTATE_DIR}'"
