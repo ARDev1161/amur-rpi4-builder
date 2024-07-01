@@ -9,11 +9,8 @@ SSTATE_DIR="${HOME}/cache/sstate"
 BUILD_DIR="build"
 if ! command -v bitbake &> /dev/null
 then
-    echo "command 'bitbake' could not be found"
-    echo
-    echo \"source ${SCRIPT_DIR}/poky/oe-init-build-env ${BUILD_DIR}\"
-    echo \"cd ${SCRIPT_DIR}\"
-    exit
+    source ${SCRIPT_DIR}/poky/oe-init-build-env ${BUILD_DIR}
+    cd ${SCRIPT_DIR}
 fi
 
 echo "Adding bitbake layers"
@@ -29,8 +26,7 @@ bitbake-layers add-layer \
     ${SCRIPT_DIR}/meta-raspberrypi \
     ${SCRIPT_DIR}/meta-ros/meta-ros-common \
     ${SCRIPT_DIR}/meta-ros/meta-ros2 \
-    ${SCRIPT_DIR}/meta-ros/meta-ros2-humble \
-    ${SCRIPT_DIR}/meta-ros2-demo
+    ${SCRIPT_DIR}/meta-ros/meta-ros2-humble
 popd &> /dev/null
 
 echo

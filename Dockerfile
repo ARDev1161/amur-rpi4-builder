@@ -19,12 +19,14 @@ RUN \
         echo "dash dash/sh boolean false" | debconf-set-selections && \
         dpkg-reconfigure dash
 
+        # sudo without password
+        echo "build ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/build && \
+        chmod 0440 /etc/sudoers.d/build
+
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /bin/repo && chmod a+x /bin/repo
 RUN sed -i "1s/python/python3/" /bin/repo
 RUN groupadd build -g 1000
-RUN useradd -ms /bin/bash -p build build -u 1028 -g 1000 && \
-        usermod -aG sudo build && \
-        echo "build:build" | chpasswd
+RUN useradd -ms /bin/bash -p build build -u 1028 -g 1000
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -34,5 +36,3 @@ ENV LANG en_US.utf8
 USER build
 WORKDIR /home/build
 RUN git config --global user.email "build@example.com" && git config --global user.name "Build"
-
-CMD ["./create-bitbake-conf.sh"]
