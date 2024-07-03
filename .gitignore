@@ -1,0 +1,7 @@
+$GIT_DIR/.cache/*
+$GIT_DIR/.cmake/*
+$GIT_DIR/__pycache__/*
+$GIT_DIR/build/*
+$GIT_DIR/cache/*
+$GIT_DIR/.wget-hsts
+$GIT_DIR/pyshtables.py
