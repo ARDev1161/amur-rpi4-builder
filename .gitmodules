@@ -10,9 +10,3 @@
 [submodule "meta-raspberrypi"]
 	path = meta-raspberrypi
 	url = git://git.yoctoproject.org/meta-raspberrypi
-[submodule "meta-clang"]
-	path = meta-clang
-	url = https://github.com/kraj/meta-clang.git
-[submodule "meta-intel"]
-	path = meta-intel
-	url = https://git.yoctoproject.org/meta-intel
