@@ -2,14 +2,7 @@
 
 ### Feat
 
-- moved to Yocto Kirkstone
-
-### Fix
-
-- **.gitignore**: fixed paths
 - moved to Yocto Scarthgap
-- **yocto-build.sh**: fix pathes
-- fixed build starting
 
 ## v0.1.0 (2023-03-30)
 

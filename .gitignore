@@ -1,3 +1,4 @@
+.local/share
 .cache/*
 .cmake/*
 __pycache__/*
