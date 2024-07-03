@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN \
         dpkg --add-architecture i386 && \
         apt-get update && \
-        apt-get install -yq sudo build-essential git nano vim\
+        apt-get install -yq sudo coreutils build-essential git nano vim\
           python3-yaml libncursesw5 libncursesw5:i386 \
           python python3 man bash diffstat gawk chrpath wget cpio \
           texinfo lzop apt-utils bc screen libncurses5-dev locales \
@@ -14,11 +14,11 @@ RUN \
           libtool libtool-bin procps python3-distutils pigz socat \
           zstd iproute2 lz4 iputils-ping \
           curl libtinfo5 net-tools xterm rsync u-boot-tools unzip zip patch && \
-
-        rm -rf /var/lib/apt-lists/* && \
-        echo "dash dash/sh boolean false" | debconf-set-selections && \
-        dpkg-reconfigure dash
-
+#
+#         rm -rf /var/lib/apt-lists/* && \
+#         echo "dash dash/sh boolean false" | debconf-set-selections && \
+#         dpkg-reconfigure dash \
+#
         # sudo without password
         echo "build ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/build && \
         chmod 0440 /etc/sudoers.d/build
@@ -35,4 +35,6 @@ ENV LANG en_US.utf8
 
 USER build
 WORKDIR /home/build
+RUN chmod 777 /home/build
+
 RUN git config --global user.email "build@example.com" && git config --global user.name "Build"
