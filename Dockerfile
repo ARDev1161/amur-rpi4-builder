@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN \
         dpkg --add-architecture i386 && \
         apt-get update && \
-        apt-get install -yq sudo coreutils build-essential git nano vim\
+        apt-get install -yq sudo coreutils build-essential cmake git ca-certificates nano vim\
           python3-yaml libncursesw5 libncursesw5:i386 \
           python python3 man bash diffstat gawk chrpath wget cpio \
           texinfo lzop apt-utils bc screen libncurses5-dev locales \
@@ -37,4 +37,4 @@ USER build
 WORKDIR /home/build
 RUN chmod 777 /home/build
 
-RUN git config --global user.email "build@example.com" && git config --global user.name "Build"
+RUN git config --global user.email "build@example.com" && git config --global user.name "Build" && git config --global http.sslVerify true
