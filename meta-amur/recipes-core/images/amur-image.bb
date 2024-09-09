@@ -14,9 +14,10 @@ IMAGE_FEATURES += "ssh-server-openssh"
 EXTRA_IMAGE_FEATURES = "debug-tweaks"
 
 IMAGE_INSTALL:remove = "packagegroup-rpi-test"
-IMAGE_INSTALL:append = " packagegroup-rpi-amur \
+IMAGE_INSTALL:append = "packagegroup-rpi-amur \
     wifi-setup \
+    piper \
     ros-core \
     rplidar-ros \
 "
-IMAGE_INSTALL:append = " pciutils usbutils i2c-tools htop"
+IMAGE_INSTALL:append = "pciutils usbutils i2c-tools htop"
