@@ -17,6 +17,8 @@ IMAGE_INSTALL:remove = "packagegroup-rpi-test"
 IMAGE_INSTALL:append = "packagegroup-rpi-amur \
     wifi-setup \
     piper \
+    pulseaudio \
+    alsa-utils \
     ros-core \
     rplidar-ros \
 "
