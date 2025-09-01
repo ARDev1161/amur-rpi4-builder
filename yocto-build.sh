@@ -9,7 +9,10 @@ IMAGE_NAME="amur-image-humble"
 DL_DIR="${HOME}/cache/dl"
 SSTATE_DIR="${HOME}/cache/sstate"
 BUILD_DIR="${SCRIPT_DIR}/build"
-MACHINE_TYPE="raspberrypi4-64"
+
+# Default platform and machine; can be overridden by CLI options
+PLATFORM="rpi4"
+MACHINE_TYPE=""
 
 WIFI_SSID="amur"
 WIFI_PASSWORD="sensorika.info-AMUR"
@@ -23,7 +26,8 @@ usage() {
     echo "  --dl-dir DIR           Set the download directory (default: $DL_DIR)"
     echo "  --sstate-dir DIR       Set the sstate cache directory (default: $SSTATE_DIR)"
     echo "  --build-dir DIR        Set the build directory (default: $BUILD_DIR)"
-    echo "  --machine TYPE         Set the machine type (default: $MACHINE_TYPE)"
+    echo "  --platform NAME        Target platform: rpi4 or cm3588-plus (default: $PLATFORM)"
+    echo "  --machine TYPE         Set the Yocto machine (overrides platform default)"
     echo "  --wifi-ssid SSID       Set the Wi-Fi SSID (default: $WIFI_SSID)"
     echo "  --wifi-pass PASS       Set the Wi-Fi password (default: $WIFI_PASSWORD)"
     exit 1
@@ -51,6 +55,11 @@ while [[ $# -gt 0 ]]; do
             shift
             shift
             ;;
+        --platform)
+            PLATFORM="$2"
+            shift
+            shift
+            ;;
         --machine)
             MACHINE_TYPE="$2"
             shift
@@ -72,6 +81,22 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# Determine machine and platform-specific layers
+case "$PLATFORM" in
+    rpi4)
+        MACHINE_TYPE=${MACHINE_TYPE:-"raspberrypi4-64"}
+        PLATFORM_LAYERS=(${SCRIPT_DIR}/meta-raspberrypi)
+        ;;
+    cm3588-plus)
+        MACHINE_TYPE=${MACHINE_TYPE:-"cm3588-plus"}
+        PLATFORM_LAYERS=(${SCRIPT_DIR}/meta-rockchip)
+        ;;
+    *)
+        echo "Unsupported platform: ${PLATFORM}"
+        exit 1
+        ;;
+esac
+
 echo "-----------------------"
 echo "START BUILD YOCTO IMAGE"
 echo "-----------------------"
@@ -89,6 +114,7 @@ echo "  IMAGE_NAME = ${IMAGE_NAME}"
 echo "  DL_DIR = ${DL_DIR}"
 echo "  SSTATE_DIR = ${SSTATE_DIR}"
 echo "  BUILD_DIR = ${BUILD_DIR}"
+echo "  PLATFORM = ${PLATFORM}"
 echo "  MACHINE_TYPE = ${MACHINE_TYPE}"
 echo "  WIFI_SSID = ${WIFI_SSID}"
 echo "  WIFI_PASSWORD = ${WIFI_PASSWORD}"
@@ -102,7 +128,7 @@ bitbake-layers add-layer \
     ${SCRIPT_DIR}/meta-openembedded/meta-multimedia/ \
     ${SCRIPT_DIR}/meta-openembedded/meta-networking \
     ${SCRIPT_DIR}/meta-openembedded/meta-python \
-    ${SCRIPT_DIR}/meta-raspberrypi \
+    ${PLATFORM_LAYERS[@]} \
     ${SCRIPT_DIR}/meta-ros/meta-ros-common \
     ${SCRIPT_DIR}/meta-ros/meta-ros2 \
     ${SCRIPT_DIR}/meta-ros/meta-ros2-humble \
