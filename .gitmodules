@@ -10,3 +10,6 @@
 [submodule "meta-raspberrypi"]
 	path = meta-raspberrypi
 	url = git://git.yoctoproject.org/meta-raspberrypi
+[submodule "meta-rockchip"]
+	path = meta-rockchip
+	url = git://git.yoctoproject.org/meta-rockchip
